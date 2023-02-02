@@ -16,3 +16,8 @@ Version: 1.0
     z-index: 1;
     position: absolute;
 }
+
+/* form font */
+.ff-el-input--label label {
+color: #fb6f92;
+}
