@@ -10,7 +10,15 @@ class AdminBar
     
     public function register()
     {
-        add_action('admin_bar_menu', [$this, 'addMenuBar'], 99);
+        if (!self::isDisabled()) {
+            add_action('admin_bar_menu', [$this, 'addMenuBar'], 99);
+        }
+    }
+    
+    public static function isDisabled()
+    {
+        $settings = get_option('_fluentform_global_form_settings');
+        return $settings && 'no' == ArrayHelper::get($settings, 'misc.admin_top_nav_status');
     }
     
     public function addMenuBar($wpAdminBar)
@@ -72,7 +80,7 @@ class AdminBar
             ->count();
         $entriesDropdownTitle = __('Entries', 'fluentform');
         if ($hasUnreadSubmissions > 0) {
-            $style = "background: #ca4a20;color: white;border-radius: 8px;padding: 1px 7px; height: 16px; display: inline-flex; align-items: center;";
+            $style = "background: #3f9eff;color: white;border-radius: 8px;padding: 1px 7px; height: 16px; display: inline-flex; align-items: center;";
             $title .= ' <span class="ff_unread_count" style="' . $style . '">' . $hasUnreadSubmissions . '</span>';
             // for dropdown title
             $style .= 'float:right; margin-top:4px';
@@ -93,12 +101,11 @@ class AdminBar
         ];
         
         if ($settingsCapability) {
-//      todo add new form from link admin nav
-//            $items['new_form'] = [
-//                'title'      => __('New Form', 'fluentform'),
-//                'capability' => $fromRole ? $settingsCapability : 'fluentform_forms_manager',
-//                'url'        => 'admin.php?page=fluent_forms#add=1',
-//            ];
+            $items['new_form'] = [
+                'title'      => __('New Form', 'fluentform'),
+                'capability' => $fromRole ? $settingsCapability : 'fluentform_forms_manager',
+                'url'        => 'admin.php?page=fluent_forms#add=1',
+            ];
             
             $items['fluent_forms_all_entries'] = [
                 'title'      => $entriesDropdownTitle,
