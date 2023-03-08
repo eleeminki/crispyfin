@@ -1,13 +1,12 @@
-
 <?php
 
 function register_mynav()
 {
     register_nav_menus(
         array(
-        'header' => 'Header',
-        'footer' => 'Footer',
-        '404' => '404',
+            'header' => 'Header',
+            'footer' => 'Footer',
+            '404' => '404',
         )
     );
 }
@@ -16,9 +15,9 @@ function register_mynav()
 if (!function_exists('crispysetup')) {
     function crispysetup()
     {
-        register_mynav();#6EC1E4
+        register_mynav(); #6EC1E4
         add_theme_support('post-thumbnails');
-        add_theme_support('post-formats', array( 'aside', 'gallery', 'quote', 'image', 'video' ));
+        add_theme_support('post-formats', array('aside', 'gallery', 'quote', 'image', 'video'));
     }
 }
 
